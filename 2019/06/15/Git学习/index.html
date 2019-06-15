@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.2" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="关于Git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git学习">
+<meta property="og:url" content="https://obmutescence.github.io/2019/06/15/Git学习/index.html">
+<meta property="og:site_name" content="obmutescence">
+<meta property="og:description" content="关于Git">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-06-15T03:59:55.465Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git学习">
+<meta name="twitter:description" content="关于Git">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://obmutescence.github.io/2019/06/15/Git学习/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Git学习 | obmutescence</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">obmutescence</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">红红火火恍恍惚惚</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">1</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">1</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">4</span></a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://obmutescence.github.io/2019/06/15/Git学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="爸爸">
+      <meta itemprop="description" content="This is MyBlog">
+      <meta itemprop="image" content="https://s2.ax1x.com/2019/06/04/VtOSEQ.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="obmutescence">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Git学习
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-15 17:37:31 / 修改时间：11:59:55" itemprop="dateCreated datePublished" datetime="2019-06-15T17:37:31+08:00">2019-06-15</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="关于Git"><a href="#关于Git" class="headerlink" title="关于Git"></a>关于Git</h3><a id="more"></a>
+
+<h4 id="1-什么是git"><a href="#1-什么是git" class="headerlink" title="1. 什么是git"></a>1. 什么是git</h4><ul>
+<li>Git是一个分布式版本控制工具</li>
+</ul>
+<h4 id="2-集中式和分布式的区别"><a href="#2-集中式和分布式的区别" class="headerlink" title="2. 集中式和分布式的区别"></a>2. 集中式和分布式的区别</h4><ul>
+<li><p>集中式版本控制的系统（svn）</p>
+<ol>
+<li><p>版本库是集中存放在中央服务上的，往往在开发时，需要从中央服务器上获取最新的版本，</p>
+</li>
+<li><p>是按照文件进行存取的，导致版本库的体积会很大</p>
+</li>
+<li><p>每个分支和标签都是一个完整的目录，每次拉取都要下载分支上的所有内容，<strong><em>且无法在分支级别做到提交隔离</em></strong>。</p>
+</li>
+<li><p>svn必须在有网的情况下才能使用。</p>
+</li>
+</ol>
+</li>
+<li><p>分布式版本控制的系统（Git）</p>
+<ol>
+<li><p>不存在中央服务区的概念，每个人的电脑都是一个完整的版本库，因此不需要网络就可以使用。</p>
+</li>
+<li><p>版本库是以元数据进行存取的，因此版本库的体积更小。</p>
+</li>
+<li><p><strong><em>原声的支持分支和标签</em></strong></p>
+</li>
+</ol>
+</li>
+<li><p>为什么选择Git</p>
+<ol>
+<li><p><strong>更好的发布控制能力</strong>，能够设置只有发布管理员才有权限推送的版本库版本和分支，用于稳定发布版本的维护。</p>
+</li>
+<li><p><strong>隔离开发，提交审核</strong>，Git服务器上可以实现用户自建分支和自建版本库的能力，这样团队中的新成员既能够将本地代码提交推送到服务器已对工作进行备份，又能够方便团队中的其他成员对自己的提交进行审核。</p>
+</li>
+<li><p><strong>对合并更好的支持</strong>，Git的分支设计比svn提供更好的合并追踪，这是开发者选择Git，抛弃svn的重要原因。</p>
+</li>
+<li><p><strong>拥有更完成的生态</strong>，例如github，gitlab…</p>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="3-Git的基本概念"><a href="#3-Git的基本概念" class="headerlink" title="3. Git的基本概念"></a>3. Git的基本概念</h4><ul>
+<li><p><strong>工作区</strong>，简单的理解就是包含了.git目录的普通目录，</p>
+</li>
+<li><p><strong>本地仓库</strong>，在Git管理的项目下，都会有一个<strong>.git目录，这个就是Git的本地仓库，这个目录里面存储了所有和该项目相关的所有历史记录。每次 git commit 的结果都会保存在这里。</strong>本地仓库的概念是Git作为分布式版本控制的核心概念，也是区别与其他版本控制的地方，每个人员都拥有一个完整的版本库。</p>
+</li>
+<li><p><strong>暂存区</strong>，可以理解为Git暂时存放被改动文件的地方，是Git本地仓库的一部分。在工作区修改的文件是没有办法直接提交到Git版本库的，必须要<strong>先通过 git add命令提交到暂存区</strong>。暂存区内所存储的文件会被下一次 git commit 的时候作为一个新的版本提交到git仓库.</p>
+<ul>
+<li><p>如果直接在工作目录里修改了文件，使用git commit是不会提交到Git仓库的。</p>
+</li>
+<li><p>一个文件一旦被暂存了，你可以继续修改工作目录的同一个文件，但是暂存区的文件是不会修改的，除非你再次使用 git add暂存最新的改动。</p>
+</li>
+<li><p>每次先通过 git add命令提交到暂存区git commit的只会提交暂存区的文件，工作目录中的文件无论修改与否Git都会忽略，只提交暂存区的文件。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>远端仓库</strong>，我们的改动知识存储到本地仓库，如果想要其他人看到你的改动，就需要将本地版本push远端仓库。</p>
+</li>
+</ul>
+<h4 id="4-Git命令"><a href="#4-Git命令" class="headerlink" title="4. Git命令"></a>4. Git命令</h4><ul>
+<li><p>版本库 </p>
+<ol>
+<li><p>通过<code>git init</code>命令把这个目录变成Git可以管理的仓库。</p>
+</li>
+<li><p>用命令<code>git add</code>告诉Git，将这个文件添加到仓库。<code>git add &lt;fielname1&gt; &lt;filename2&gt;</code>，添加多个文件。</p>
+<ul>
+<li>参数<code>-f</code> 强制添加。</li>
+</ul>
+</li>
+<li><p>使用命令<code>git commit</code>,将这个文件提交到仓库。<code>git commit -m &#39;&lt;message&gt;&#39;</code></p>
+</li>
+<li><p><code>git status</code>命令可以让我们随时掌握仓库的状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line"> On branch master</span><br><span class="line"> Changes not staged for commit:</span><br><span class="line"> (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)</span><br><span class="line"> (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)</span><br><span class="line"> modified: readme.txt</span><br><span class="line"> no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ol>
+</li>
+</ul>
+<pre><code>示例中的输出信息代表我们的 `readme.txt`文件被修改了。</code></pre><ol start="5">
+<li><code>git diff &lt;filename&gt;</code>可以告诉我们这个文件做了什么修改。</li>
+</ol>
+<hr>
+<ul>
+<li><p>版本控制</p>
+<ol>
+<li><p><code>git log</code>查看从最近到最远的提交日志。</p>
+<ul>
+<li><p><code>git log --pretty=oneline</code>可以查看版本号。</p>
+</li>
+<li><p><code>git  log --graph</code>可以查看分支图。</p>
+</li>
+</ul>
+</li>
+<li><p><code>git reset --hard HEAD^</code>回退到上一个版本。</p>
+<ul>
+<li><code>git reset --hard &lt;版本号&gt;</code>回退到指定版本。</li>
+</ul>
+</li>
+<li><p><code>git reflog</code>查看命令历史。</p>
+</li>
+<li><p><code>git checkout -- &lt;filrname&gt;</code>命令让这个文件回退到最近一次<code>git commit</code>或者<code>git add</code>时的状态。</p>
+</li>
+<li><p><code>git rm &lt;filename&gt;</code>从版本库中删除这个文件。</p>
+</li>
+</ol>
+<hr>
+</li>
+<li><p>远程仓库</p>
+<ol>
+<li><p><code>ssh-keygen -t rsa -C &quot;&lt;邮箱地址&gt;&quot;</code>生成关于github的ssh key。</p>
+</li>
+<li><p><code>git remote add origin &lt;ssh地址&gt;</code>关联github远程库。</p>
+<ol>
+<li><p>关联后，使用命令<code>git push -u origin master</code>第一次推送master上的所有内容。</p>
+<ul>
+<li><p>此后每次提交，就可以使用命令<code>git push origin master</code>推送最新修改。</p>
+</li>
+<li><p>远程库的名字就是<code>origin</code>，Git的默认叫法。</p>
+</li>
+</ul>
+</li>
+<li><p><code>git remote</code>查看远程库的信息。使用参<code>-v</code>查看更详细的信息。</p>
+</li>
+</ol>
+</li>
+<li><p><code>git clone &lt;仓库地址&gt;</code>，克隆到本地库。</p>
+<ul>
+<li>Git支持SSH协议，和https协议。</li>
+</ul>
+</li>
+<li><p><code>git push origin &lt;branch-name&gt;</code>推送最新修改。</p>
+</li>
+</ol>
+<hr>
+</li>
+<li><p>分支管理</p>
+<ol>
+<li><p><code>git branch &lt;branch-name&gt;</code>新建分支。</p>
+<ul>
+<li>在提示没有该分支的跟踪信息时，使用<code>git branch --set-upstream-to=origin/&lt;branch-name&gt; &lt;branch-nam&gt;</code>将与远程仓库的分支链接。</li>
+</ul>
+</li>
+<li><p><code>git checkout &lt;branch-name&gt;</code>选择分支。</p>
+</li>
+<li><p><code>git checkout -b &lt;branch-name&gt;</code>新建分支并且选择这个分支。</p>
+<ul>
+<li><code>git checkout -b &lt;branch-name&gt; origin/&lt;branch-name&gt;</code>创建远程仓库地址的分支到本地。</li>
+</ul>
+</li>
+<li><p><code>git branch</code>列出所有分支。</p>
+</li>
+<li><p><code>git merge &lt;branch-name&gt;</code>将该分支内容合并到当前分支上。</p>
+<ul>
+<li><code>git merge --no-ff -m &quot;&lt;message&gt;&quot; &lt;分支名&gt;</code>，加上<code>--no-ff</code>参数就可以使用普通模式合并分支，合并后有历史记录。</li>
+</ul>
+</li>
+<li><p><code>git branch -d &lt;branch-name&gt;</code>删除该分支。</p>
+<ul>
+<li><code>git branch -D &lt;branch-name&gt;</code>强行删除分支。</li>
+</ul>
+</li>
+<li><p><code>git stash</code>可以把当前未提交的工作暂时“储存”在堆栈缓存中。</p>
+<ul>
+<li><p><code>git stash save &quot;&lt;message&gt;&quot;</code>，附带提示信息。</p>
+</li>
+<li><p><code>git stash list</code>查看“储存”的工作。</p>
+</li>
+<li><p><code>git stash apply</code>可以恢复内容，但是并不会删除，需要使用<code>git stash drop</code>来删除。</p>
+</li>
+<li><p><code>git stash pop</code>恢复的同时并删除。</p>
+</li>
+</ul>
+</li>
+<li><p><code>git rebase</code>优化提交历史，把本地未push的分叉提交历史整理为直线，使得我们查看跟容易，缺点是本地的分叉会被修改。</p>
+</li>
+</ol>
+<hr>
+</li>
+<li><p>标签管理</p>
+<ol>
+<li><p><code>git tag</code>查看所有标签。</p>
+<ul>
+<li><p><code>git tag &lt;tag-name&gt;</code>新建一个标签，默认打在最近的一次commit上。</p>
+</li>
+<li><p><code>git tag &lt;tag-name&gt; &lt;commit-id&gt;</code>，为commit id的提交打上标签。</p>
+</li>
+<li><p><code>git tag -a &lt;tag-name&gt; -m &quot;&lt;message&gt;&quot; &lt;commit-id&gt;</code>，打上带有说明的标签。</p>
+</li>
+<li><p><code>git tag -d &lt;tag-name&gt;</code>，删除本地的标签。</p>
+</li>
+</ul>
+</li>
+<li><p><code>git show &lt;tag-name&gt;</code>，查看标签的详细信息。</p>
+</li>
+<li><p><code>git push origin &lt;tag-name&gt;</code>，将标签推送到远程仓库。</p>
+<ul>
+<li><code>git push origin --tags</code>，提交所有未推送的标签。</li>
+</ul>
+</li>
+<li><p>删除标签</p>
+<ul>
+<li><p><code>git tag -d</code>，先删除本地的标签。</p>
+</li>
+<li><p><code>git push origin :refs/tags/&lt;tag-name&gt;</code>，删除远程的标签。</p>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+</li>
+<li><p>自定义Git</p>
+<ol>
+<li><p>使用<code>git config --global alias.&lt;别名&gt; &#39;git命令&#39;</code>给命令起别名。</p>
+</li>
+<li></li>
+</ol>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/15/文件列表/" rel="next" title>
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://s2.ax1x.com/2019/06/04/VtOSEQ.gif" alt="爸爸">
+            
+              <p class="site-author-name" itemprop="name">爸爸</p>
+              <div class="site-description motion-element" itemprop="description">This is MyBlog</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/obmutescence" title="GitHub &rarr; https://github.com/obmutescence" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="mailto:twentyseven.tt@gmail.com" title="E-Mail &rarr; mailto:twentyseven.tt@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于Git"><span class="nav-number">1.</span> <span class="nav-text">关于Git</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-什么是git"><span class="nav-number">1.1.</span> <span class="nav-text">1. 什么是git</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-集中式和分布式的区别"><span class="nav-number">1.2.</span> <span class="nav-text">2. 集中式和分布式的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Git的基本概念"><span class="nav-number">1.3.</span> <span class="nav-text">3. Git的基本概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Git命令"><span class="nav-number">1.4.</span> <span class="nav-text">4. Git命令</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">爸爸</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.1.2</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.2"></script>
+
+  <script src="/js/motion.js?v=7.1.2"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.2"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.2"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.2"></script>
+<script src="/js/post-details.js?v=7.1.2"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.2"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
